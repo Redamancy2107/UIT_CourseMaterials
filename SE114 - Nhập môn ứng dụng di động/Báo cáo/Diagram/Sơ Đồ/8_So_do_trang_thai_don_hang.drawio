@@ -1,0 +1,73 @@
+<mxfile host="app.diagrams.net" agent="5.0">
+  <diagram id="diag_Trạng_thái_Đơn_hàng" name="Trạng thái Đơn hàng">
+    <mxGraphModel grid="1" page="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="node_2" parent="1" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=18;fontColor=#0F4C81;" value="&lt;b&gt;SƠ ĐỒ TRẠNG THÁI ĐƠN HÀNG URMYFOOD&lt;/b&gt;" vertex="1">
+          <mxGeometry height="30" width="400" x="70" y="30" as="geometry" />
+        </mxCell>
+        <mxCell id="node_3" parent="1" style="ellipse;html=1;fillColor=#000000;strokeColor=none;" value="" vertex="1">
+          <mxGeometry height="30" width="30" x="405" y="100" as="geometry" />
+        </mxCell>
+        <mxCell id="node_4" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=40;fillColor=#fff2cc;strokeColor=#d6b656;fontColor=#000000;fontSize=16;" value="&lt;b&gt;PENDING&lt;/b&gt;&lt;br&gt;(Chờ xác nhận)" vertex="1">
+          <mxGeometry height="50" width="200" x="320" y="170" as="geometry" />
+        </mxCell>
+        <mxCell id="node_5" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=40;fillColor=#dae8fc;strokeColor=#6c8ebf;fontColor=#000000;fontSize=16;" value="&lt;b&gt;ACCEPTED&lt;/b&gt;&lt;br&gt;(Đã nhận đơn)" vertex="1">
+          <mxGeometry height="50" width="200" x="320" y="270" as="geometry" />
+        </mxCell>
+        <mxCell id="node_6" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=40;fillColor=#dae8fc;strokeColor=#6c8ebf;fontColor=#000000;fontSize=16;" value="&lt;b&gt;PREPARING&lt;/b&gt;&lt;br&gt;(Đang chuẩn bị)" vertex="1">
+          <mxGeometry height="50" width="200" x="320" y="370" as="geometry" />
+        </mxCell>
+        <mxCell id="node_7" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=40;fillColor=#e1d5e7;strokeColor=#9673a6;fontColor=#000000;fontSize=16;" value="&lt;b&gt;DELIVERING&lt;/b&gt;&lt;br&gt;(Đang giao hàng)" vertex="1">
+          <mxGeometry height="50" width="200" x="320" y="470" as="geometry" />
+        </mxCell>
+        <mxCell id="node_8" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=40;fillColor=#d5e8d4;strokeColor=#82b366;fontColor=#000000;fontSize=16;" value="&lt;b&gt;DELIVERED&lt;/b&gt;&lt;br&gt;(Đã giao / Hoàn thành)" vertex="1">
+          <mxGeometry height="50" width="200" x="320" y="570" as="geometry" />
+        </mxCell>
+        <mxCell id="node_9" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=40;fillColor=#f8cecc;strokeColor=#b85450;fontColor=#000000;fontSize=16;" value="&lt;b&gt;CANCELLED&lt;/b&gt;&lt;br&gt;(Đã hủy đơn)" vertex="1">
+          <mxGeometry height="50" width="170" x="40" y="370" as="geometry" />
+        </mxCell>
+        <mxCell id="node_10" parent="1" style="ellipse;html=1;shape=endState;fillColor=#000000;strokeColor=#ffffff;strokeWidth=2;" value="" vertex="1">
+          <mxGeometry height="30" width="30" x="405" y="680" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_11" edge="1" parent="1" source="node_3" style="endArrow=classic;html=1;rounded=0;fontSize=10;fontColor=#333333;strokeColor=#555555;" target="node_4" value="Khách hàng đặt hàng">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_12" edge="1" parent="1" source="node_4" style="endArrow=classic;html=1;rounded=0;fontSize=10;fontColor=#333333;strokeColor=#555555;" target="node_5" value="Cửa hàng chấp nhận">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_13" edge="1" parent="1" source="node_5" style="endArrow=classic;html=1;rounded=0;fontSize=10;fontColor=#333333;strokeColor=#555555;" target="node_6" value="Cửa hàng làm món">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_14" edge="1" parent="1" source="node_6" style="endArrow=classic;html=1;rounded=0;fontSize=10;fontColor=#333333;strokeColor=#555555;" target="node_7" value="Tài xế nhận &amp; giao hàng">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_15" edge="1" parent="1" source="node_7" style="endArrow=classic;html=1;rounded=0;fontSize=10;fontColor=#333333;strokeColor=#555555;" target="node_8" value="Giao hàng thành công">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_16" edge="1" parent="1" source="node_8" style="endArrow=classic;html=1;rounded=0;fontSize=10;fontColor=#333333;strokeColor=#555555;" target="node_10" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_17" edge="1" parent="1" source="node_4" style="endArrow=classic;html=1;rounded=0;fontSize=10;fontColor=#333333;strokeColor=#555555;exitX=0.033;exitY=0.897;exitDx=0;exitDy=0;exitPerimeter=0;" target="node_9" value="Khách hủy / Shop từ chối">
+          <mxGeometry relative="1" x="-0.1825" y="2" as="geometry">
+            <mxPoint y="1" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_18" edge="1" parent="1" source="node_5" style="endArrow=classic;html=1;rounded=0;fontSize=10;fontColor=#333333;strokeColor=#555555;entryX=0.985;entryY=0.276;entryDx=0;entryDy=0;entryPerimeter=0;exitX=0.017;exitY=0.872;exitDx=0;exitDy=0;exitPerimeter=0;" target="node_9" value="Shop hủy (hết món)">
+          <mxGeometry relative="1" x="-0.1615" y="8" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_19" edge="1" parent="1" source="node_9" style="endArrow=classic;html=1;rounded=0;strokeColor=#b85450;edgeStyle=orthogonalEdgeStyle;curved=1;" target="node_10" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="230" y="395" />
+              <mxPoint x="230" y="695" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
