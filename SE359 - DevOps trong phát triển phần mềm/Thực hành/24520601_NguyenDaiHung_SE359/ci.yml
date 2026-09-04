@@ -1,0 +1,116 @@
+name: CI Pipeline
+
+on:
+  push:
+    branches: ["main", "feature/devops"]
+  pull_request:
+    branches: ["main", "feature/devops"]
+
+jobs:
+  ci-pipeline:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "18"
+          cache: "yarn"
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Test
+        run: yarn test
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Build Docker image
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          file: ./Dockerfile
+          push: false
+          tags: express-hello-world:latest
+
+      - name: Notify Success
+        if: success()
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+          COMMIT_MSG: ${{ github.event.head_commit.message }}
+          AUTHOR: ${{ github.event.head_commit.author.name }}
+          REPO: ${{ github.repository }}
+          BRANCH: ${{ github.ref_name }}
+        run: |
+          echo "========================================="
+          echo " THÔNG BÁO: CI Pipeline ĐÃ THÀNH CÔNG!   "
+          echo "========================================="
+          if [ -n "$DISCORD_WEBHOOK" ]; then
+            curl -H "Content-Type: application/json" \
+                 -X POST \
+                 -d "$(jq -n \
+                   --arg title "🟢 CI Pipeline Succeeded!" \
+                   --arg color "3066993" \
+                   --arg repo "$REPO" \
+                   --arg branch "$BRANCH" \
+                   --arg author "$AUTHOR" \
+                   --arg msg "$COMMIT_MSG" \
+                   '{
+                     embeds: [{
+                       title: $title,
+                       color: ($color | tonumber),
+                       fields: [
+                         { name: "Repository", value: $repo, inline: true },
+                         { name: "Branch", value: $branch, inline: true },
+                         { name: "Author", value: $author, inline: true },
+                         { name: "Commit Message", value: $msg }
+                       ]
+                     }]
+                   }')" \
+                 "$DISCORD_WEBHOOK"
+          else
+            echo "DISCORD_WEBHOOK is not set, skipping Discord notification."
+          fi
+
+      - name: Notify Failure
+        if: failure()
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+          COMMIT_MSG: ${{ github.event.head_commit.message }}
+          AUTHOR: ${{ github.event.head_commit.author.name }}
+          REPO: ${{ github.repository }}
+          BRANCH: ${{ github.ref_name }}
+        run: |
+          echo "========================================="
+          echo " THÔNG BÁO: CI Pipeline ĐÃ THẤT BẠI!     "
+          echo "========================================="
+          if [ -n "$DISCORD_WEBHOOK" ]; then
+            curl -H "Content-Type: application/json" \
+                 -X POST \
+                 -d "$(jq -n \
+                   --arg title "🔴 CI Pipeline Failed!" \
+                   --arg color "15158332" \
+                   --arg repo "$REPO" \
+                   --arg branch "$BRANCH" \
+                   --arg author "$AUTHOR" \
+                   --arg msg "$COMMIT_MSG" \
+                   '{
+                     embeds: [{
+                       title: $title,
+                       color: ($color | tonumber),
+                       fields: [
+                         { name: "Repository", value: $repo, inline: true },
+                         { name: "Branch", value: $branch, inline: true },
+                         { name: "Author", value: $author, inline: true },
+                         { name: "Commit Message", value: $msg }
+                       ]
+                     }]
+                   }')" \
+                 "$DISCORD_WEBHOOK"
+          else
+            echo "DISCORD_WEBHOOK is not set, skipping Discord notification."
+          fi
